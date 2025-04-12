@@ -12,8 +12,12 @@ async function loadFirestoreData() {
 
   snapshot.forEach((doc) => {
     const data = doc.data();
-    if (!data.geometry || !data.geometry.coordinates) return; // 좌표 없는 경우 생략
-
+    //if (!data.geometry || !data.geometry.coordinates) return; // 좌표 없는 경우 생략
+    if (!data.geometry || !data.geometry.longitude || !data.geometry.latitude) return;
+    coordinates: [
+      parseFloat(data.geometry.longitude),
+      parseFloat(data.geometry.latitude)
+    ]
     geojson.features.push({
       type: "Feature",
       geometry: {
@@ -39,8 +43,13 @@ async function addLayers(map) {
 // 'data': './data/layers/AVcrash3.geojson',
     'data': geojsonData,
     cluster: true,
-    clusterMaxZoom: 14, // clustering max zoom level
+    clusterMaxZoom: 13, // clustering max zoom level
     clusterRadius: 50   // cluster radius (pixels)
+  });
+
+  map.addSource('cbg-layer', {
+    'type': 'geojson',
+    'data': './data/layers/cbg_data.geojson'
   });
 
   // Add a new source from our GeoJSON data and
@@ -81,18 +90,38 @@ async function addLayers(map) {
         'text-size': 12
       }
     },
-    {
-      id: 'unclustered-point',
-      type: 'circle',
-      source: 'crashes',
-      filter: ['!', ['has', 'point_count']],
-      paint: {
-        'circle-color': '#11b4da',
-        'circle-radius': 6,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#fff'
-      }
-    },
+   {
+     id: 'unclustered-point',
+     type: 'circle',
+     source: 'crashes',
+     filter: ['!', ['has', 'point_count']],
+     paint: {
+       'circle-color': '#11b4da',
+       'circle-radius': 6,
+      'circle-stroke-width': 1,
+       'circle-stroke-color': '#fff'
+     }
+   },
+
+    // {
+    //   id: 'cbg-fill',
+    //   type: 'fill',
+    //   source: 'cbg-layer',
+    //   paint: {
+    //     'fill-color': [
+    //       'interpolate',
+    //       ['linear'],
+    //       ['get', 'Residential'],  // <- 시각화할 속성
+    //       0, '#f2f0f7',
+    //       20, '#cbc9e2',
+    //       40, '#9e9ac8',
+    //       60, '#756bb1',
+    //       80, '#54278f'
+    //     ],
+    //     'fill-opacity': 0.7
+    //   }
+    // },
+
   ];
 
   // Add All Layers to the Map

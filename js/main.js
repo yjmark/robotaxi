@@ -2,7 +2,7 @@ import { db, collection, addDoc } from './firebase.js';
 import { setupMap } from './map-setup.js';
 import { setupGeocoder } from './geocoder.js';
 import { addLayers } from './layers.js';
-import { loadEvents } from './eventlist.js';
+import { loadEvents, currentMarkers } from './eventlist.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWptYXJrIiwiYSI6ImNtMHlwOG81NTBxZ2kya3BsZXp5MXJ5Z2wifQ.ijwd5rmGXOOJtSao2rNQhg';
 const map = setupMap();
@@ -10,22 +10,76 @@ const map = setupMap();
 //new mapboxgl.Popup({ closeOnClick: false })
 //.setLngLat([-76.295, 36.965])
 //.setHTML(`
-//  <h3>Base Management System by Youngsang Jun</h3>
-//  <h4>About Base Management System</h4>
-//  <p>Base Management System is a system for manage all kinds of events in a military base, such as training, exercise, sports, construction projects etc. This engagement project uses the Norfolk Naval Base in Virginia as an example. Therefore, the expected primary users of this system are the personnel stationed at the Norfolk Naval Base. The system will share schedules and locations of activities with relevant personnel within the base.</p>
+//  <h3>Robotaxi Incidents Management System By Shuai Wang, Emmanuel Jiang, and Youngsang Jun</h3>
+//  <h4>About Robotaxi Incidents Management System</h4>
+//  <p>Robotaxi Incidents Management System is a system for manage .</p>
 //    <h4>Notes</h4>
-//    <p>- This dataset is fictitious and does not reflect actual data.</p>
+//    <p>- This dataset is real and does reflect actual data.</p>
 //`)
 //.addTo(map);
-setupGeocoder(map);
+
+
+
 // 초기 레이어 및 소스 추가
 map.on('load', () => {
-  addLayers(map);
+  addLayers(map);  
   loadEvents(map);
+  
+
+  
+  map.on("zoomend", () => {
+    const zoom = map.getZoom();
+  
+    currentMarkers.forEach(marker => {
+      const el = marker.getElement();
+      if (zoom >= 14) {
+        el.style.display = "block";
+        el.style.pointerEvents = "auto";  // 클릭 가능하게
+      } else {
+        el.style.display = "none";
+        el.style.pointerEvents = "none";
+      }
+    });
+  });
+  
+});
+setupGeocoder(map);
+
+
+// Zoom into cluster on click
+map.on('click', 'clusters', (e) => {
+  const features = map.queryRenderedFeatures(e.point, {
+    layers: ['clusters']
+  });
+  const clusterId = features[0].properties.cluster_id;
+  map.getSource('crashes').getClusterExpansionZoom(clusterId, (err, zoom) => {
+    if (err) return;
+
+    map.easeTo({
+      center: features[0].geometry.coordinates,
+      zoom: zoom
+    });
+  });
 });
 
+// Change the cursor to a pointer when the mouse is over the clusters layer
+map.on('mouseenter', 'clusters', () => {
+  map.getCanvas().style.cursor = 'pointer';
+});
+map.on('mouseleave', 'clusters', () => {
+  map.getCanvas().style.cursor = '';
+});
 
 map.on("click", (e) => {
+  // 👉 만약 클릭한 곳이 점(unclustered-point)이나 클러스터(clusters) 위라면 이벤트 중단
+  const clickedFeatures = map.queryRenderedFeatures(e.point, {
+    layers: ['unclustered-point', 'clusters']
+  });
+
+  if (clickedFeatures.length > 0) {
+    return; // 점이나 클러스터 클릭 시 무시
+  }
+
   // Add Event Button 
   const lat = e.lngLat.lat.toFixed(6); 
   const lng = e.lngLat.lng.toFixed(6);
@@ -39,9 +93,9 @@ map.on("click", (e) => {
     window.selectedMarker.remove(); // Remove the existing marker
   }
 
-  window.selectedMarker = new mapboxgl.Marker()
-    .setLngLat([lng, lat])
-    .addTo(map);
+  // window.selectedMarker = new mapboxgl.Marker({ color: "#003764" })
+  //   .setLngLat([lng, lat])
+  //   .addTo(map);
   
   const popupContent = document.createElement("div");
   popupContent.innerHTML = `
@@ -62,8 +116,8 @@ map.on("click", (e) => {
     form.reset();
 
     // Add event
-    document.getElementById("event_place").value = `${lat}, ${lng}`;
-    document.getElementById("event_name").focus(); // 이벤트 이름 입력 필드에 포커스
+    document.getElementById("geometry").value = `${lat}, ${lng}`;
+    document.getElementById("Accident_Date_Time").focus(); // 이벤트 이름 입력 필드에 포커스
     // Bootstrap modal
     const addEventModal = new bootstrap.Modal(document.getElementById("eventModal"));
     addEventModal.show();

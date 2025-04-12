@@ -4,20 +4,20 @@ from datetime import datetime
 import json
 import os
 
-# 🔐 인증
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/yjmark/Documents/Practicum_Robotaxi/robotaxi-incident-webapp/robotaxi-webapp/data/layers/robotaxi-incidents-mgmt-sys-14dc5a9a79fa.json"
+# 🔐 Authentication
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./robotaxi-incidents-mgmt-sys-14dc5a9a79fa.json"
 
-# 📁 GeoJSON 파일 열기
-with open("/Users/yjmark/Documents/Practicum_Robotaxi/robotaxi-webapp/data/layers/AVcrash3.geojson", "r", encoding="utf-8") as f:
+# 📁 Open GeoJSON
+with open("./AVcrash3.geojson", "r", encoding="utf-8") as f:
     geojson_data = json.load(f)
 
-# 🔥 Firestore 클라이언트 초기화
+# Initialize Firestore Client
 db = firestore.Client()
 
-# 📂 저장할 컬렉션 이름
+# Collection name
 collection_name = "av_crash_data"
 
-# 📝 각 Feature를 문서로 저장
+# Save each incident feature as a document
 for index, feature in enumerate(geojson_data["features"]):
     doc_id = f"record_{index+1}"
     
@@ -25,19 +25,19 @@ for index, feature in enumerate(geojson_data["features"]):
     geometry = feature["geometry"]
     coordinates = geometry.get("coordinates", [None, None])
     
-    # longitude, latitude 추출
-    longitude, latitude = coordinates  # GeoJSON은 [lon, lat] 순서임
+    # Extract longitude and latitude
+    longitude, latitude = coordinates  # GeoJSON [lon, lat] order
 
-    # Accident_Date_Time 문자열이 있다면 datetime으로 변환
+    # Convert Accident_Date_Time text to datetime
     if "Accident_Date_Time" in properties and properties["Accident_Date_Time"]:
         try:
             properties["Accident_Date_Time"] = datetime.strptime(
                 properties["Accident_Date_Time"],
-                "%Y-%m-%dT%H:%M:%SZ"  # ← 여기에 실제 포맷 맞게 입력
+                "%Y-%m-%dT%H:%M:%SZ"  
             )
         except Exception as e:
-            print(f"⚠️ 날짜 변환 실패 (record {doc_id}): {e}")
-            properties["Accident_Date_Time"] = None  # 또는 원래 문자열 유지해도 OK
+            print(f"Failed to convert (record {doc_id}): {e}")
+            properties["Accident_Date_Time"] = None  
 
     # Firestore에 저장할 dict 구조
     data = {
