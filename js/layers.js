@@ -55,7 +55,96 @@ async function addLayers(map) {
   // Add a new source from our GeoJSON data and
   // set the 'cluster' option to true. GL-JS will
   // add the point_count property to your source data.
-  
+  const properties = [
+    { key: "Population", layerId: "population-layer", color: "#e55e5e" },
+    { key: "MedHHInc", layerId: "medhhinc-layer", color: "#5eade5" },
+    // 여기에 더 추가
+  ];
+
+  const propertiesPct = [
+    { key: "Whites", layerId: "whites-layer" },
+    { key: "Black", layerId: "black-layer" },
+    { key: "Asian", layerId: "asian-layer" },
+    { key: "Native_Ame", layerId: "native_ame-layer" },
+    { key: "Public", layerId: "public-layer" },
+    { key: "Commercial", layerId: "commercial-layer" },
+    { key: "Industrial", layerId: "industrial-layer" },
+    { key: "Residential", layerId: "residential-layer" },
+    { key: "Mixed Use", layerId: "mixed-use-layer" }
+  ];
+
+  const propertiesPct1 = [
+    
+
+    // 여기에 더 추가
+  ];
+
+  properties.forEach(({ key, layerId, color }) => {
+    map.addLayer({
+      id: layerId,
+      type: "fill",
+      source: "cbg-layer",
+      layout: { visibility: "none" },
+      paint: {
+          "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["get", key],
+          0, "#f2f0f7",
+          100, color,
+          500, "#000"
+        ],
+        "fill-opacity": 0.6
+      }
+    });
+  });
+
+  propertiesPct.forEach(({ key, layerId}) => {
+    map.addLayer({
+      id: layerId,
+      type: "fill",
+      source: "cbg-layer",
+      layout: { visibility: "none" },
+      paint: {
+          "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["get", key],
+          0, " #0d47a1",
+          20, " #1976d2",
+          40, " #2196f3",
+          60, " #64b5f6",
+          80, " #bbdefb",
+          100, " #bbdefb"
+        ],
+        "fill-opacity": 1
+      }
+    });
+  });
+
+  propertiesPct1.forEach(({ key, layerId}) => {
+    map.addLayer({
+      id: layerId,
+      type: "fill",
+      source: "cbg-layer",
+      layout: { visibility: "none" },
+      paint: {
+          "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["get", key],
+          0, "#0d47a1",
+          0.2, "#1976d2",
+          0.4, "#2196f3",
+          0.6, "#64b5f6",
+          0.8, "#bbdefb",
+          1.0, "#bbdefb"
+        ],
+        "fill-opacity": 0.6
+      }
+    });
+  });
+
   const layers = [
     {
       id: 'clusters',
@@ -121,6 +210,7 @@ async function addLayers(map) {
     //     'fill-opacity': 0.7
     //   }
     // },
+    
 
   ];
 
@@ -130,4 +220,7 @@ async function addLayers(map) {
   });
 
 }
+
+
+
 export { addLayers };

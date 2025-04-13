@@ -2,7 +2,7 @@ import { db, collection, addDoc } from './firebase.js';
 import { setupMap } from './map-setup.js';
 import { setupGeocoder } from './geocoder.js';
 import { addLayers } from './layers.js';
-import { loadEvents, currentMarkers } from './eventlist.js';
+import { loadEvents, currentMarkers, updateEventListInView } from './eventlist.js';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWptYXJrIiwiYSI6ImNtMHlwOG81NTBxZ2kya3BsZXp5MXJ5Z2wifQ.ijwd5rmGXOOJtSao2rNQhg';
 const map = setupMap();
@@ -45,6 +45,9 @@ map.on('load', () => {
 });
 setupGeocoder(map);
 
+map.on("moveend", () => {
+  updateEventListInView(map);// 지도 이동 후 리스트 갱신
+});
 
 // Zoom into cluster on click
 map.on('click', 'clusters', (e) => {
@@ -176,4 +179,16 @@ document.getElementById("eventModal").addEventListener("hidden.bs.modal", () => 
 
   document.body.classList.remove("modal-open");
   document.body.style.overflow = ""; 
+});
+
+document.getElementById("layer-controls").addEventListener("click", (e) => {
+  const layerId = e.target.getAttribute("data-layer");
+  if (!layerId) return;
+
+  const visibility = map.getLayoutProperty(layerId, "visibility");
+  map.setLayoutProperty(
+    layerId,
+    "visibility",
+    visibility === "visible" ? "none" : "visible"
+  );
 });

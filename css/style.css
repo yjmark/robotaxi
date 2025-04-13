@@ -14,12 +14,48 @@
     overflow: hidden;
 }
 
+
+
 #map {
     position: absolute;
     left: 30%;
     top: 0;
-    bottom: 0;
     min-width: 70%;
+    height: 80vh;
+}
+
+#layerList {
+    position: absolute;
+    width: 70%;
+    top: 80%;
+    left: 30%;
+    font:
+        12px/20px 'Open Sans',
+        Arial,
+        Helvetica,
+        sans-serif;
+    background-color: #efefef;
+    height: 10vh; 
+    overflow: hidden;
+    z-index: 10;
+    margin-top: 10px;
+    padding: 10px;
+    overflow-y: auto; 
+    height: 20vh;
+}
+
+
+#layerList h4 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#layerList h5 {
+    font-size: 1rem;
+    color: #aaa;
+    margin-bottom: 15px;
+    font-style: italic;
 }
 
 #eventList {
