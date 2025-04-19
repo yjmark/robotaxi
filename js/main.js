@@ -221,33 +221,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-let hoveredId = null;
-
-map.on('mousemove', 'cbg-fill-layer', (e) => {
-  if (e.features.length > 0) {
-    // 이전 hover된 feature의 hover 상태 false로
-    if (hoveredId !== null) {
-      map.setFeatureState(
-        { source: 'cbg-layer', id: hoveredId },
-        { hover: false }
-      );
-    }
-
-    // 새로운 feature hover 상태 true로
-    hoveredId = e.features[0].id;
-    map.setFeatureState(
-      { source: 'cbg-layer', id: hoveredId },
-      { hover: true }
-    );
-  }
-});
-
-map.on('mouseleave', 'cbg-fill-layer', () => {
-  if (hoveredId !== null) {
-    map.setFeatureState(
-      { source: 'cbg-layer', id: hoveredId },
-      { hover: false }
-    );
-  }
-  hoveredId = null;
-});

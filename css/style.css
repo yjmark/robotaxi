@@ -44,14 +44,14 @@
 } */
 
 #radarChart {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 10px;
     position: absolute;     /* or fixed */
-  top: 20px;              /* 원하는 위치 */
-  right: 20px;            /* 원하는 위치 */
+  top: 5px;              /* 원하는 위치 */
+  right: 5px;            /* 원하는 위치 */
   background-color: white; /* 테스트용 배경색 */
   border: 1px solid #ccc;  /* 디버깅 시 시각화 도움 */
-    background-color: rgba(255,255,255,0.9); /* 반투명 흰색 */
+    background-color: rgba(255,255,255,0.7); /* 반투명 흰색 */
     
   }
 
