@@ -12,9 +12,7 @@ function createListItem(data, docId) {
     <div class="event-details">
       <div class="event-title"><strong>${data.Business_Name}</strong><br></div>
       <div>
-        ${data.Make} ${data.Model}<br>
         ${formattedDate}<br>
-        ${data.Number_of_Vehicles_Involved} vehicle(s)/${data.Involved_in_the_Accident} involved<br>
         ${data.Full_Address}
       </div>
     </div>

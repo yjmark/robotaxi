@@ -81,7 +81,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 0.12281287,
-        "Mixed Use": 6.02377e-08,
+        "Mixed Use": 6.02e-08,
         "commercial_density": 31.22899763,
         "tree_density": 15.61449881,
         "open_space_density": 2.602416469,
@@ -2174,7 +2174,7 @@
         "Violation.": 337.175831,
         "Homeless_d": 97.8897574,
         "Unemployme": 9.417344173,
-        "Public": 4.72968e-05,
+        "Public": 4.73e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 85.80973478,
@@ -2775,7 +2775,7 @@
         "Commercial": 0.0,
         "Industrial": 5.034291516,
         "Residential": 90.21329339,
-        "Mixed Use": 4.56034e-07,
+        "Mixed Use": 4.56e-07,
         "commercial_density": 1260.673658,
         "tree_density": 13437.12042,
         "open_space_density": 30.19577623,
@@ -6693,7 +6693,7 @@
         "Violation.": 804.8952717,
         "Homeless_d": 112.3109681,
         "Unemployme": 1.509433962,
-        "Public": 2.56045e-06,
+        "Public": 2.56e-06,
         "Commercial": 0.004910842,
         "Industrial": 0.0,
         "Residential": 0.0,
@@ -6997,7 +6997,7 @@
         "Violation.": 567.3746684,
         "Homeless_d": 210.7391625,
         "Unemployme": 6.924101198,
-        "Public": 1.26723e-06,
+        "Public": 1.27e-06,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99869901,
@@ -7585,7 +7585,7 @@
         "Violation.": 33629.35838,
         "Homeless_d": 1697.79285,
         "Unemployme": 17.62854145,
-        "Public": 1.02074e-05,
+        "Public": 1.02e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 0.0,
@@ -13265,7 +13265,7 @@
         "Violation.": 70.68962138,
         "Homeless_d": 11.78160356,
         "Unemployme": 1.824401368,
-        "Public": 1.18665e-05,
+        "Public": 1.19e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99998813,
@@ -19444,7 +19444,7 @@
         "Violation.": 51.09862818,
         "Homeless_d": 6.387328523,
         "Unemployme": 0.472255018,
-        "Public": 2.06032e-06,
+        "Public": 2.06e-06,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99999794,
@@ -26421,7 +26421,7 @@
         "Homeless_d": 94.03949373,
         "Unemployme": 0.0,
         "Public": 0.0,
-        "Commercial": 9.18698e-07,
+        "Commercial": 9.19e-07,
         "Industrial": 0.0,
         "Residential": 50.04346822,
         "Mixed Use": 49.95653086,
@@ -26732,7 +26732,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 94.65889119,
-        "Mixed Use": 7.85386e-05,
+        "Mixed Use": 7.85e-05,
         "commercial_density": 1039.38955,
         "tree_density": 1253.866759,
         "open_space_density": 0.0,
@@ -28166,7 +28166,7 @@
         "Public": 13.92264412,
         "Commercial": 86.07729071,
         "Industrial": 0.0,
-        "Residential": 6.51704e-05,
+        "Residential": 6.52e-05,
         "Mixed Use": 0.0,
         "commercial_density": 26861.39966,
         "tree_density": 5964.771736,
@@ -29980,7 +29980,7 @@
         "Unemployme": 6.331877729,
         "Public": 26.89374776,
         "Commercial": 0.0,
-        "Industrial": 1.78484e-07,
+        "Industrial": 1.78e-07,
         "Residential": 70.86387621,
         "Mixed Use": 2.242375853,
         "commercial_density": 1536.78745,
@@ -34206,7 +34206,7 @@
         "Violation.": 603.1267096,
         "Homeless_d": 326.0144376,
         "Unemployme": 0.0,
-        "Public": 2.54842e-06,
+        "Public": 2.55e-06,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 83.43891947,
@@ -37522,7 +37522,7 @@
         "Violation.": 149.514558,
         "Homeless_d": 11.50111984,
         "Unemployme": 2.375102375,
-        "Public": 2.03567e-05,
+        "Public": 2.04e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99997964,
@@ -37809,112 +37809,64 @@
         "coordinates": [
           [
             [
-              -122.331615467306,
-              37.822696
-            ],
-            [
-              -122.328024583922,
-              37.81887
-            ],
-            [
-              -122.332037,
-              37.814278
-            ],
-            [
-              -122.331615467306,
-              37.812831
-            ],
-            [
-              37.7870695682435,
-              37.808029
-            ],
-            [
-              37.7813728248168,
-              37.807016
-            ],
-            [
-              37.782035,
-              37.807429
-            ],
-            [
-              37.7870695682435,
-              37.809379
-            ],
-            [
               -122.377679,
-              37.811068
-            ],
-            [
-              -122.373453,
-              37.814669
-            ],
-            [
-              -122.368752,
-              37.826897
-            ],
-            [
-              -122.362911,
               37.83046
             ],
             [
+              -122.373453,
+              37.832298
+            ],
+            [
+              -122.368752,
+              37.831286
+            ],
+            [
+              -122.362911,
+              37.822696
+            ],
+            [
               -122.364289,
-              -122.420365736738
+              37.81887
             ],
             [
               -122.358779,
-              -122.419585
+              37.814278
             ],
             [
               -122.360775,
-              -122.418879387974
+              37.812831
             ],
             [
               -122.361107,
-              -122.41847
+              37.808029
             ],
             [
               -122.362294,
-              -122.419827346383
+              37.807016
             ],
             [
               -122.367138,
-              -122.419907
+              37.807429
             ],
             [
               -122.371649,
-              -122.420365736738
+              37.809379
             ],
             [
               -122.372836,
-              37.8633422971737
+              37.811068
             ],
             [
               -122.371269,
-              37.863282
+              37.814669
             ],
             [
               -122.378962,
-              37.862321355107
+              37.826897
             ],
             [
               -122.377679,
-              37.861764
-            ],
-            [
-              37.83046,
-              37.8600830120157
-            ],
-            [
-              37.832298,
-              37.860579
-            ],
-            [
-              37.831286,
-              37.8633422971737
-            ],
-            [
-              -122.331615467306,
-              37.822696
+              37.83046
             ]
           ]
         ]
@@ -38025,7 +37977,7 @@
         "Violation.": 75.95150696,
         "Homeless_d": 87.63635418,
         "Unemployme": 8.210890233,
-        "Public": 1.34158e-06,
+        "Public": 1.34e-06,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99964095,
@@ -38851,7 +38803,7 @@
         "Violation.": 263.5041928,
         "Homeless_d": 83.21185036,
         "Unemployme": 8.333333333,
-        "Public": 5.42193e-06,
+        "Public": 5.42e-06,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 94.7193782,
@@ -42094,7 +42046,7 @@
         "Violation.": 79.74844897,
         "Homeless_d": 39.87422449,
         "Unemployme": 4.787234043,
-        "Public": 4.58953e-05,
+        "Public": 4.59e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.9999541,
@@ -42336,7 +42288,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 25.50329826,
-        "Mixed Use": 1.12617e-05,
+        "Mixed Use": 1.13e-05,
         "commercial_density": 260.5560018,
         "tree_density": 270.9782419,
         "open_space_density": 5.211120036,
@@ -44563,7 +44515,7 @@
         "Violation.": 80.48146689,
         "Homeless_d": 5.748676207,
         "Unemployme": 18.05054152,
-        "Public": 3.17197e-05,
+        "Public": 3.17e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99996828,
@@ -45325,7 +45277,7 @@
         "Violation.": 341.0538576,
         "Homeless_d": 222.9967531,
         "Unemployme": 6.127886323,
-        "Public": 5.82795e-05,
+        "Public": 5.83e-05,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 65.28258277,
@@ -47063,7 +47015,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 94.71614046,
-        "Mixed Use": 3.37372e-07,
+        "Mixed Use": 3.37e-07,
         "commercial_density": 3503.79878,
         "tree_density": 9474.557925,
         "open_space_density": 0.0,
@@ -48311,9 +48263,9 @@
         "Homeless_d": 1883.402689,
         "Unemployme": 1.593625498,
         "Public": 40.81802894,
-        "Commercial": 1.37812e-06,
+        "Commercial": 1.38e-06,
         "Industrial": 0.0,
-        "Residential": 8.06623e-05,
+        "Residential": 8.07e-05,
         "Mixed Use": 59.18188902,
         "commercial_density": 11322.56452,
         "tree_density": 9603.769148,
@@ -48425,7 +48377,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 26.07334297,
-        "Mixed Use": 6.09252e-06,
+        "Mixed Use": 6.09e-06,
         "commercial_density": 266.5582963,
         "tree_density": 454.3607323,
         "open_space_density": 6.058143098,
@@ -48660,7 +48612,7 @@
         "Unemployme": 3.607723577,
         "Public": 1.42704424,
         "Commercial": 17.71908225,
-        "Industrial": 3.80627e-07,
+        "Industrial": 3.81e-07,
         "Residential": 0.0,
         "Mixed Use": 80.85387313,
         "commercial_density": 6533.638126,
@@ -54203,7 +54155,7 @@
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 99.99999939,
-        "Mixed Use": 6.06921e-07,
+        "Mixed Use": 6.07e-07,
         "commercial_density": 281.2351017,
         "tree_density": 2048.998598,
         "open_space_density": 0.0,
@@ -54764,7 +54716,7 @@
         "Violation.": 579.5493185,
         "Homeless_d": 236.5507422,
         "Unemployme": 1.756007394,
-        "Public": 4.04507e-07,
+        "Public": 4.05e-07,
         "Commercial": 0.0,
         "Industrial": 0.0,
         "Residential": 64.58379238,
@@ -55101,85 +55053,6 @@
         "VEI": 0.194441795,
         "VMI": 0.439938426,
         "VHI": 0.025508761
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [
-              -122.425227,
-              37.828586
-            ],
-            [
-              -122.423245,
-              37.828721
-            ],
-            [
-              -122.420248,
-              37.826513
-            ],
-            [
-              -122.420722,
-              37.82525
-            ],
-            [
-              -122.42277,
-              37.825256
-            ],
-            [
-              -122.425407,
-              37.827269
-            ],
-            [
-              -122.425227,
-              37.828586
-            ]
-          ]
-        ]
-      },
-      "properties": {
-        "GEOID": 60750179032,
-        "crash_count": 1,
-        "Area_km2": null,
-        "MedHHInc": null,
-        "Whites": null,
-        "Black": null,
-        "Asian": null,
-        "Native_Ame": null,
-        "Ethics_div": null,
-        "MedRent": null,
-        "MedHVal": null,
-        "Population": null,
-        "Building_d": null,
-        "Felony_den": null,
-        "Misdemeano": null,
-        "Violation.": null,
-        "Homeless_d": null,
-        "Unemployme": null,
-        "Public": null,
-        "Commercial": null,
-        "Industrial": null,
-        "Residential": null,
-        "Mixed Use": null,
-        "commercial_density": 0.0,
-        "tree_density": 0.0,
-        "open_space_density": 0.0,
-        "intersection_density": 0.0,
-        "road_density": 0.0,
-        "traffic_signals_density": 0.0,
-        "parking_meter_density": 0.0,
-        "Bus Stop Density": 0.0,
-        "Bus Line Density": 0.0,
-        "Metro Stop Density": 0.0,
-        "Metro Line Density": 0.0,
-        "SVI": null,
-        "GVI": null,
-        "VEI": null,
-        "VMI": null,
-        "VHI": null
       }
     },
     {

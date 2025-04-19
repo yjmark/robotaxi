@@ -3,6 +3,9 @@ import { setupMap } from './map-setup.js';
 import { setupGeocoder } from './geocoder.js';
 import { addLayers } from './layers.js';
 import { loadEvents, currentMarkers, updateEventListInView } from './eventlist.js';
+import { createLayerControls } from './layercontrols.js';
+import { initRadarChart, updateRadarChart } from './radarchart.js';
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoieWptYXJrIiwiYSI6ImNtMHlwOG81NTBxZ2kya3BsZXp5MXJ5Z2wifQ.ijwd5rmGXOOJtSao2rNQhg';
 const map = setupMap();
@@ -191,4 +194,60 @@ document.getElementById("layer-controls").addEventListener("click", (e) => {
     "visibility",
     visibility === "visible" ? "none" : "visible"
   );
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  createLayerControls();
+});
+
+// 페이지 로드 후 차트 초기화
+document.addEventListener('DOMContentLoaded', () => {
+  initRadarChart();
+
+  map.on('click', 'cbg-fill-layer', function (e) {
+    const props = e.features[0].properties;
+    const maxValues = {
+      population: 10000,
+      income: 100000,
+      rent: 5000,
+      houseValue: 1000000
+    };
+    const population = (parseFloat(props.Population) || 0)/ maxValues.population;
+    const income = (parseFloat(props.MedHHInc) || 0)/ maxValues.income;
+    const rent = (parseFloat(props.MedRent) || 0)/ maxValues.rent;
+    const value = (parseFloat(props.MedHVal) || 0)/ maxValues.houseValue;
+
+    updateRadarChart([population, income, rent, value]);
+  });
+});
+
+let hoveredId = null;
+
+map.on('mousemove', 'cbg-fill-layer', (e) => {
+  if (e.features.length > 0) {
+    // 이전 hover된 feature의 hover 상태 false로
+    if (hoveredId !== null) {
+      map.setFeatureState(
+        { source: 'cbg-layer', id: hoveredId },
+        { hover: false }
+      );
+    }
+
+    // 새로운 feature hover 상태 true로
+    hoveredId = e.features[0].id;
+    map.setFeatureState(
+      { source: 'cbg-layer', id: hoveredId },
+      { hover: true }
+    );
+  }
+});
+
+map.on('mouseleave', 'cbg-fill-layer', () => {
+  if (hoveredId !== null) {
+    map.setFeatureState(
+      { source: 'cbg-layer', id: hoveredId },
+      { hover: false }
+    );
+  }
+  hoveredId = null;
 });
