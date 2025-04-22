@@ -6,7 +6,7 @@ function initRadarChart(canvasId = 'radarChart') {
   radarChart = new Chart(ctx, {
     type: 'radar',
     data: {
-      labels: ['Population', 'Median Income', 'Median Rent', 'House Value'],
+      labels: ['Commercial POI Density', 'Population', 'Intersection Density', 'Traffic Signal Density'],
       datasets: [{
         label: 'Block Group Stats',
         data: [0, 0, 0, 0],

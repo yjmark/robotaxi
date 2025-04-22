@@ -207,17 +207,17 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('click', 'cbg-fill-layer', function (e) {
     const props = e.features[0].properties;
     const maxValues = {
-      population: 10000,
-      income: 100000,
-      rent: 5000,
-      houseValue: 1000000
+      commercial_density: 75268,
+      Population: 70500,
+      intersection_density: 2294,
+      traffic_signals_density: 353
     };
-    const population = (parseFloat(props.Population) || 0)/ maxValues.population;
-    const income = (parseFloat(props.MedHHInc) || 0)/ maxValues.income;
-    const rent = (parseFloat(props.MedRent) || 0)/ maxValues.rent;
-    const value = (parseFloat(props.MedHVal) || 0)/ maxValues.houseValue;
+    const comPOI = (parseFloat(props.commercial_density) || 0)/ maxValues.commercial_density;
+    const population = (parseFloat(props.Population) || 0)/ maxValues.Population;
+    const intersection = (parseFloat(props.intersection_density) || 0)/ maxValues.intersection_density;
+    const signal = (parseFloat(props.traffic_signals_density) || 0)/ maxValues.traffic_signals_density;
 
-    updateRadarChart([population, income, rent, value]);
+    updateRadarChart([comPOI, population, intersection, signal]);
   });
 });
 
