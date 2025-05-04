@@ -1,7 +1,7 @@
-import { db, collection, addDoc } from './firebase.js';
+import { db, collection, addDoc, getDocs } from './firebase.js';
 import { setupMap } from './map-setup.js';
 import { setupGeocoder } from './geocoder.js';
-import { addLayers } from './layers.js';
+import { addLayers, updateLegend, hideLegend, propertiesTree } from './layers.js';
 import { loadEvents, currentMarkers, updateEventListInView } from './eventlist.js';
 import { createLayerControls } from './layercontrols.js';
 import { initRadarChart, updateRadarChart } from './radarchart.js';
@@ -21,18 +21,13 @@ const map = setupMap();
 //`)
 //.addTo(map);
 
-
-
-// 초기 레이어 및 소스 추가
+// Initialize the map and add layers
 map.on('load', () => {
   addLayers(map);  
   loadEvents(map);
   
-
-  
   map.on("zoomend", () => {
     const zoom = map.getZoom();
-  
     currentMarkers.forEach(marker => {
       const el = marker.getElement();
       if (zoom >= 14) {
@@ -58,10 +53,9 @@ setupGeocoder(map);
 //   };
 // }
 
-
-
+// Update the event list when the map is moved
 map.on("moveend", () => {
-  updateEventListInView(map);// 지도 이동 후 리스트 갱신
+  updateEventListInView(map);
 });
 
 // Zoom into cluster on click
@@ -101,7 +95,7 @@ map.on("click", (e) => {
   // Add Event Button 
   const lat = e.lngLat.lat.toFixed(6); 
   const lng = e.lngLat.lng.toFixed(6);
-
+  
   // Fill the event_place coordination input field with the clicked location
   const eventPlaceInput = document.getElementById("geometry");
   eventPlaceInput.value = `${lat}, ${lng}`;
@@ -118,7 +112,7 @@ map.on("click", (e) => {
   const popupContent = document.createElement("div");
   popupContent.innerHTML = `
     <button type="button" id="addEventButton" class="btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal" style="margin-top: 5px;">
-      Add Event Here
+      Add Incident Here
     </button>
   `;
 
@@ -157,6 +151,7 @@ document.getElementById("confirmButton").addEventListener("click", async () => {
   const Vehicle_was = document.getElementById("Vehicle_was").value;
   const Full_Address = document.getElementById("Full_Address").value;
   const Involved_in_the_Accident = document.getElementById("Involved_in_the_Accident").value;
+  
   if (!Business_Name || !Vehicle_Year ||!Make || !Model ||isNaN(lat) || isNaN(lng)|| !Number_of_Vehicles_Involved || !Vehicle_was) {
     alert("Please fill in all required fields correctly!");
     return;
@@ -201,19 +196,23 @@ document.getElementById("layer-controls").addEventListener("click", (e) => {
   if (!layerId) return;
 
   const visibility = map.getLayoutProperty(layerId, "visibility");
+  const newVisibility = visibility === "visible" ? "none" : "visible";
   map.setLayoutProperty(
     layerId,
     "visibility",
-    visibility === "visible" ? "none" : "visible"
+    newVisibility
   );
+  const allProps = [...propertiesTree]; // propertiesTree는 import된 것
+  const match = allProps.find(p => p.layerId === layerId);
+  if (newVisibility === "visible" && match) {
+    updateLegend(match);  // ✅ 범례 갱신!
+  } else {
+    hideLegend();         // ✅ 범례 숨김
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   createLayerControls();
-});
-
-// 페이지 로드 후 차트 초기화
-document.addEventListener('DOMContentLoaded', () => {
   initRadarChart();
 
   map.on('click', 'cbg-fill-layer', function (e) {
@@ -233,3 +232,59 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// 🔽 过滤并导出数据为 JSON 文件
+async function downloadFilteredData() {
+  // const querySnapshot = await getDocs(collection(db, "av_crash_data"));
+  // const allData = [];
+
+  // querySnapshot.forEach((docSnap) => {
+  //   allData.push(docSnap.data());  // 무조건 추가
+  // });
+
+  // // JSON으로 저장
+  // const blob = new Blob([JSON.stringify(allData, null, 2)], { type: "application/json" });
+  // const url = URL.createObjectURL(blob);
+  // const link = document.createElement("a");
+  // link.href = url;
+  // link.download = "robotaxi_data_all.json";
+  // document.body.appendChild(link);
+  // link.click();
+  // document.body.removeChild(link);
+  // URL.revokeObjectURL(url);
+  const company = document.getElementById("companySelect").value.trim().toLowerCase();
+  const year = document.getElementById("yearSelect").value.trim();
+
+  const querySnapshot = await getDocs(collection(db, "av_crash_data"));
+  const filtered = [];
+
+  querySnapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+
+    const businessName = (data.Business_Name || "").toLowerCase();
+    const vehicleYear = data.Vehicle_Year ? data.Vehicle_Year.toString().trim() : "";
+
+    const matchCompany = !company || businessName.includes(company); // 부분일치
+    const matchYear = !year || vehicleYear === year;
+
+    if (matchCompany && matchYear) {
+      filtered.push(data);
+    }
+  });
+
+  if (filtered.length === 0) {
+    alert("No matching records found.");
+    return;
+  }
+
+  const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "filtered_robotaxi_data.json";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+window.downloadFilteredData = downloadFilteredData;

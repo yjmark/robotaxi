@@ -77,33 +77,40 @@
 #layerList h4 {
     font-size: 1.5rem;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 #layerList h5 {
     font-size: 1rem;
     color: #aaa;
-    margin-top: 15px;
+    margin-top: 8px;
     font-style: italic;
 }
 
-#eventList {
-    margin-top: 10px;
+#how-to-use {
+    margin-top: 5px;
     padding: 10px;
     overflow-y: auto; 
-    height: 55vh;
+    height: 5vh;
+}
+
+#eventList {
+    margin-top: 5px;
+    padding: 10px;
+    overflow-y: auto; 
+    height: 50vh;
 }
 
 #eventList h4 {
     font-size: 1.5rem;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 #eventList h5 {
     font-size: 1rem;
     color: #aaa;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     font-style: italic;
 }
 
@@ -112,9 +119,8 @@
     padding: 0;
     margin: 0;
     cursor: pointer; 
-    transition: background-color 0.3s; 
+    transition: background-color 0.5s; 
 }
-
 
 #eventListContainer li {
     background-color: #f9f9f9;
@@ -352,9 +358,13 @@ margin-bottom: 5px;
     display: flex;
     align-items: center; /* 세로 가운데 정렬 */
     margin-bottom: 10px;
+    height: 24px;            /* ✅ 고정 높이 */
+    line-height: 1;          /* ✅ 라인 높이 통일 */
+    white-space: nowrap;     /* ✅ 줄 바꿈 방지 */
   }
 
   .toggle-switch {
+    flex-shrink: 0;           /* ✅ 토글 스위치 크기 고정 */
     position: relative;
     display: inline-block;
     width: 42px;
@@ -363,6 +373,7 @@ margin-bottom: 5px;
   }
   
   .toggle-switch input {
+    flex-shrink: 0;           /* ✅ 토글 스위치 크기 고정 */
     opacity: 0;
     width: 0;
     height: 0;
@@ -404,4 +415,10 @@ margin-bottom: 5px;
     display: inline-block;
     font-size: 14px;
     margin-right: 20px;
+    
+  }
+
+  .mapboxgl-ctrl-geocoder {
+    width: 100% !important;  /* 원하는 너비로 변경 */
+    max-width: none !important;
   }
