@@ -48,6 +48,18 @@ map.on('load', () => {
 });
 setupGeocoder(map);
 
+// 레이어 선택을 위한 버튼 설정
+// const layerList = document.getElementById('backgroundmap');
+// const inputs = layerList.getElementsByTagName('input');
+// for (const input of inputs) {
+//   input.onclick = (layer) => {
+//     const layerId = layer.target.id;
+//     map.setStyle('mapbox://styles/mapbox/' + layerId);
+//   };
+// }
+
+
+
 map.on("moveend", () => {
   updateEventListInView(map);// 지도 이동 후 리스트 갱신
 });
@@ -207,17 +219,17 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('click', 'cbg-fill-layer', function (e) {
     const props = e.features[0].properties;
     const maxValues = {
-      commercial_density: 75268,
-      Population: 70500,
-      intersection_density: 2294,
-      traffic_signals_density: 353
+      commerci_1: 75268,
+      Population: 111074,
+      SVI_Enclos: 1.30,
+      Building_d: 0.65
     };
-    const comPOI = (parseFloat(props.commercial_density) || 0)/ maxValues.commercial_density;
+    const comPOI = (parseFloat(props.commerci_1) || 0)/ maxValues.commerci_1;
     const population = (parseFloat(props.Population) || 0)/ maxValues.Population;
-    const intersection = (parseFloat(props.intersection_density) || 0)/ maxValues.intersection_density;
-    const signal = (parseFloat(props.traffic_signals_density) || 0)/ maxValues.traffic_signals_density;
+    const SVI_Enclos = (parseFloat(props.SVI_Enclos) || 0)/ maxValues.SVI_Enclos;
+    const Building_de = (parseFloat(props.Building_d) || 0)/ maxValues.Building_d;
 
-    updateRadarChart([comPOI, population, intersection, signal]);
+    updateRadarChart([comPOI, population, SVI_Enclos, Building_de]);
   });
 });
 

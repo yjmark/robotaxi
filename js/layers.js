@@ -37,6 +37,7 @@ async function loadFirestoreData() {
 async function addLayers(map) {
   const geojsonData = await loadFirestoreData();
 
+  
   // Add Source Layer
   map.addSource('crashes', {
     'type': 'geojson',
@@ -46,20 +47,20 @@ async function addLayers(map) {
     clusterMaxZoom: 13, // clustering max zoom level
     clusterRadius: 50   // cluster radius (pixels)
   });
+  
 
-
-  fetch('./data/layers/cbg_data.geojson')
+  fetch('./data/model/df_final_Sci3.geojson')
   .then(response => response.json())
   .then(geojson => {
     geojson.features.forEach(feature => {
-      feature.id = feature.properties.GEOID; // ✅ 필수!
+      feature.id = feature.properties.geoid; // ✅ 필수!
     });
-
+    
     map.addSource('cbg-layer', {
       'type': 'geojson',
       'data': geojson
     });
-
+    
     // Add a new source from our GeoJSON data and
     // set the 'cluster' option to true. GL-JS will
     // add the point_count property to your source data.
@@ -67,44 +68,66 @@ async function addLayers(map) {
 
 
     const propertiesPct = [
-      { key: "Public", layerId: "public-layer" , med: 0.5,  color: " #0000FF", max: 1},
-      { key: "Commercial", layerId: "commercial-layer", med: 0.5,  color: " #FF0000", max: 1},
-      { key: "Industrial", layerId: "industrial-layer", med: 0.5,  color: " #800080", max: 1},
-      { key: "Residential", layerId: "residential-layer",med: 0.5,  color: " #FFFF00", max: 1},
-      { key: "Mixed Use", layerId: "mixed-use-layer" , med: 0.5,  color: " #FFA500", max: 1},
-      { key: "SVI", layerId: "SVI-layer", med: 0.25,  color: " #30ab4a", max: 0.5},
-      { key: "GVI", layerId: "GVI-layer", med: 0.25,  color: " #30ab4a", max: 0.5},
-      { key: "VEI", layerId: "VEI-layer", med: 0.25,  color: " #30ab4a", max: 0.5},
-      { key: "VMI", layerId: "VMI-layer", med: 0.25,  color: " #30ab4a", max: 0.5},
-      { key: "VHI", layerId: "VHI-layer", med: 0.25,  color: " #30ab4a", max: 0.5},
+      // Land Use Data
+      //{ key: "Public", layerId: "public-layer" , med: 0.5,  color: " #0000FF", max: 1},
+      //{ key: "Commercial", layerId: "commercial-layer", med: 0.5,  color: " #FF0000", max: 1},
+      //{ key: "Industrial", layerId: "industrial-layer", med: 0.5,  color: " #800080", max: 1},
+      //{ key: "Residential", layerId: "residential-layer",med: 0.5,  color: " #FFFF00", max: 1},
+      //{ key: "Mixed Use", layerId: "mixed-use-layer" , med: 0.5,  color: " #FFA500", max: 1},
+
+      // Google Streetview Data
+      { key: "SVI_Enclos", layerId: "SVI-enclos-layer", med: 0.23,  color: "  #30ab4a", max: 1.30 }, // Top 10
+      { key: "SVI_Walkab", layerId: "SVI-walkability-layer", med: 0.0536,  color: "  #30ab4a", max: 0.1210}, // Top 10
+      { key: "SVI_Obstac", layerId: "SVI-obstacle-layer", med: 0.0035,  color: " #30ab4a", max: 0.0274},
+      { key: "VMI", layerId: "VMI-layer", med: 0.43,  color: " #30ab4a", max: 0.5}, // Top 10
+  
     ];
-
+    
     const propertiesTree = [
-      { key: "crash_count", layerId: "crash-count-layer", med: 11,  color: "  #e55e5e", max: 22 },
+      
+      // AV Crash Data
+      { key: "crash_coun", layerId: "crash-count-layer", med: 11,  color: "  #e55e5e", max: 22 },
+      { key: "crash_den", layerId: "crash-density-layer", med: 9.12,  color: "  #e55e5e", max: 22 },
+      { key: "crash_den_predicted_Sci1", layerId: "crash-density1-layer", med: 9.12,  color: "  #e55e5e", max: 22 },
+      { key: "crash_den_predicted_Sci2", layerId: "crash-density2-layer", med: 9.12,  color: "  #e55e5e", max: 22 },
+      { key: "crash_den_predicted_Sci3", layerId: "crash-density3-layer", med: 9.12,  color: "  #e55e5e", max: 22 },
       { key: "Area_km2", layerId: "Area_km2-layer", med: 2.4,  color: "  #e55e5e", max: 4.93 },
-      { key: "Population", layerId: "population-layer", med: 10401,  color: "  #e55e5e", max: 111074 },
-      { key: "MedHHInc", layerId: "medhhinc-layer", med: 149901,  color: "  #e55e5e", max: 250001 },
-      { key: "MedRent", layerId: "MedRent-layer", med: 2382,  color: "  #e55e5e", max: 3501 },
-      { key: "MedHVal", layerId: "MedHVal-layer", med: 1410900,  color: "  #e55e5e", max: 2000001 },
-      { key: "Building_d", layerId: "building-density-layer", med: 0.36,  color: " #2196f3", max: 0.65},
-      { key: "Whites", layerId: "whites-layer", med: 50,  color: " #2196f3", max: 100},
-      { key: "Black", layerId: "black-layer", med: 50,  color: " #2196f3", max: 100},
-      { key: "Asian", layerId: "asian-layer", med: 50,  color: " #2196f3", max: 100},
-      { key: "Native_Ame", layerId: "native-ame-layer", med: 50,  color: " #2196f3", max: 100},
 
-      { key: "commercial_density", layerId: "commercial-density-layer", med: 2927,  color: " #30ab4a", max: 75268},
-      { key: "tree_density", layerId: "tree-density-layer", med: 5350,  color: " #30ab4a", max: 17872},
-      { key: "open_space_density", layerId: "open-space-density-layer", med: 85,  color: " #2196f3", max: 170},
-      { key: "intersection_density", layerId: "intersection-density-layer", med: 440,  color: " #2196f3", max: 2353},
-      { key: "road_density", layerId: "road-density-layer", med: 30,  color: " #2196f3", max: 83},
-      { key: "traffic_signals_density", layerId: "traffic-signals-density-layer", med: 28,  color: " #2196f3", max: 507},
-      { key: "parking_meter_density", layerId: "parking-meter-density-layer", med: 176,  color: " #2196f3", max: 22611},
-      { key: "Bus Stop Density", layerId: "Bus-Stop-Density-layer", med: 81,  color: " #2196f3", max: 673},
-      { key: "Bus Line Density", layerId: "Bus-Line-Density-layer", med: 17,  color: " #2196f3", max: 437},
-      { key: "Metro Stop Density", layerId: "Metro-Stop-Density-layer", med: 80,  color: " #2196f3", max: 401},
-      { key: "Metro Line Density", layerId: "Metro-Line-Density-layer", med: 80,  color: " #2196f3", max: 166},
+      // Demographic Data
+      { key: "Population", layerId: "population-layer", med: 10401,  color: "  #e55e5e", max: 111074 }, // Top 10
+      { key: "Ethics_div", layerId: "ethnics-diversity-layer", med: 0.6,  color: " #2196f3", max: 0.9},
+      
+      // Social & Economic Data
+      { key: "Felony_den", layerId: "felony-density-layer", med: 286,  color: "  #e55e5e", max: 19982 }, // Top 10
+      { key: "Homeless_d", layerId: "homeless-density-layer", med: 88,  color: "  #e55e5e", max: 12328 }, // Top 10
+      { key: "MedHHInc", layerId: "medhhinc-layer", med: 149901,  color: "  #e55e5e", max: 500001 },
+     
+      // Land Use Data
+      { key: "Building_d", layerId: "building-density-layer", med: 0.36,  color: " #2196f3", max: 0.65}, // Top 10
+      { key: "commerci_1", layerId: "commercial-density-layer", med: 2933,  color: " #30ab4a", max: 75268}, // Top 10
+      { key: "Gini_Simps", layerId: "gini-simps-layer", med: 0.28,  color: "  #e55e5e", max: 0.73 }, // Top 10
+      { key: "open_space", layerId: "open-space-density-layer", med: 1,  color: "  #30ab4a", max: 170 }, 
+
+      // Transportation Data
+      { key: "intersecti", layerId: "intersection-density-layer", med: 440,  color: " #2196f3", max: 2353}, // Top 10
+      { key: "parking_me", layerId: "parking-meter-density-layer", med: 177,  color: "  #e55e5e", max: 22611}, // Top 10
+      { key: "mean_eleva", layerId: "mean-elevation-layer", med: 57,  color: "  #e55e5e", max: 230}, // Top 10
+      { key: "TransitSto", layerId: "transit-stop-density-layer", med: 85,  color: " #2196f3", max: 857},
+      { key: "avg_speed_", layerId: "average-speed-layer", med: 18,  color: "  #e55e5e", max: 72},
+
+      // Google Streetview Data
+      
+      
+      
 
       // 여기에 더 추가
+      //{ key: "Black", layerId: "black-layer", med: 50,  color: " #2196f3", max: 100},
+      //{ key: "Asian", layerId: "asian-layer", med: 50,  color: " #2196f3", max: 100},
+      //{ key: "Native_Ame", layerId: "native-ame-layer", med: 50,  color: " #2196f3", max: 100},
+      // { key: "tree_density", layerId: "tree-density-layer", med: 5350,  color: " #30ab4a", max: 17872},
+      // { key: "open_space", layerId: "open-space-density-layer", med: 85,  color: " #2196f3", max: 170},
+      // { key: "road_density", layerId: "road-density-layer", med: 30,  color: " #2196f3", max: 83},
+      // { key: "traffic_signals_density", layerId: "traffic-signals-density-layer", med: 28,  color: " #2196f3", max: 507},
     ];
 
     propertiesTree.forEach(({ key, layerId, med, color, max}) => {
@@ -115,13 +138,17 @@ async function addLayers(map) {
         layout: { visibility: "none" },
         paint: {
             "fill-color": [
-            "interpolate",
-            ["linear"],
-            ["get", key],
-            0, " #f2f0f7",
-            med, color,
-            max, "#000"
-          ],
+        "case",
+        ["!", ["is-number", ["get", key]]], "#f2f0f7",  // NaN이면 0의 색상으로
+        [
+          "interpolate",
+          ["linear"],
+          ["get", key],
+          0, "#f2f0f7",
+          med, color.trim(),
+          max, "#000000"
+        ]
+      ],
           "fill-opacity": 0.6
         }
       });
@@ -139,8 +166,8 @@ async function addLayers(map) {
             ["linear"],
             ["get", key],
             0, " #f2f0f7",
-            med, " #aaa",
-            max, color
+            med, color,
+            max, " #000"
           ],
           "fill-opacity": 0.6
         }
@@ -226,10 +253,15 @@ async function addLayers(map) {
         "fill-color": [
           'case',
           ['boolean', ['feature-state', 'hover'], false],
-          '#aa336a',     // 🔸 hover 시 색상
-          '#888888'      // 🔹 기본 색상
+          ' #aa336a',     // 🔸 hover 시 색상
+          ' #999999'      // 🔹 기본 색상
         ],
-        "fill-opacity": 0.2
+        "fill-opacity": [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.4,  // 🔸 hover 시 더 진하게
+          0.1   // 🔹 기본 투명도
+        ]
       }
     });
 

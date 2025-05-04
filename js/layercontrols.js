@@ -3,49 +3,41 @@ function createLayerControls() {
 const layerGroups = {
     "AV Crash": [
       { id: "crash-count-layer", label: "Crash count" },
-      { id: "Area_km2-layer", label: "Block Group Area (km²)" }
+      { id: "crash-density-layer", label: "Crash density (Count/mi²)" },
+      { id: "crash-density1-layer", label: "Crash density predicted-Gini Simpson Index 10% increased (Count/mi²)" },
+      { id: "crash-density2-layer", label: "Crash density predicted-SVI Walkability 10% decreased (Count/mi²)" },
+      { id: "crash-density3-layer", label: "Crash density predicted-SVI Visual furniture 10% increased (Count/mi²)" },
+      { id: "Area_km2-layer", label: "Block group area (km²)" }
     ],
     "Demographic": [
       { id: "population-layer", label: "Population" },
-      { id: "whites-layer", label: "White (%)" },
-      { id: "black-layer", label: "Black (%)" },
-      { id: "asian-layer", label: "Asian (%)" },
-      { id: "native-ame-layer", label: "Native American (%)" }
+      { id: "ethnics-diversity-layer", label: "Ethnics diversity (?)" },
     ],
     "Social & Economic": [
-      { id: "medhhinc-layer", label: "Median Household Income ($)" },
-      { id: "MedRent-layer", label: "Median Monthly Rent ($)" },
-      { id: "MedHVal-layer", label: "Median House Value ($)" },
-      { id: "building-density-layer", label: "Building Density" }
+      { id: "felony-density-layer", label: "Felony density (Count/mi²)" },
+      { id: "homeless-density-layer", label: "Homeless density (Count/mi²)" },
+      { id: "medhhinc-layer", label: "Median household income ($)" },
+
     ],
     "Land Use": [
-      { id: "public-layer", label: "Public" },
-      { id: "commercial-layer", label: "Commercial (%)" },
-      { id: "industrial-layer", label: "Industrial (%)" },
-      { id: "residential-layer", label: "Residential (%)" },
-      { id: "mixed-use-layer", label: "Mixed Use (%)" },
-      { id: "commercial-density-layer", label: "Commercial POI Density (Count/mi²)" }
+      { id: "building-density-layer", label: "Building density (?)" },
+      { id: "commercial-density-layer", label: "Commercial POI Density (Count/mi²)" },
+      { id: "gini-simps-layer", label: "Gini Simpson Index (?)" },
+      { id: "open-space-density-layer", label: "Open Space (Recreation and Parks) Density (Count/mi²)" },
     ],
-    "Open Space": [
-      { id: "tree-density-layer", label: "Tree Density (Count/mi²)" },
-      { id: "open-space-density-layer", label: "Open Space (Recreation and Parks) Density (Count/mi²)" }
-    ],
+    
     "Transportation": [
-      { id: "intersection-density-layer", label: "Intersection Density (Count/mi²)" },
-      { id: "road-density-layer", label: "Road Density (mi/mi²)" },
-      { id: "traffic-signals-density-layer", label: "Traffic Signals Density (Count/mi²)" },
-      { id: "parking-meter-density-layer", label: "Parking Meter Density (Count/mi²)" },
-      { id: "Bus-Stop-Density-layer", label: "Bus Stop Density" },
-      { id: "Bus-Line-Density-layer", label: "Bus Line Density" },
-      { id: "Metro-Stop-Density-layer", label: "Metro Stop Density" },
-      { id: "Metro-Line-Density-layer", label: "Metro Line Density" }
+      { id: "intersection-density-layer", label: "Intersection density (Count/mi²)" },
+      { id: "parking-meter-density-layer", label: "Parking meter density (Count/mi²)" },
+      { id: "mean-elevation-layer", label: "Mean elevation" },
+      { id: "transit-stop-density-layer", label: "Transit stop density (Count/mi²)" },
+      { id: "average-speed-layer", label: "Average speed" },
     ],
     "Google Streetview": [
-      { id: "SVI-layer", label: "Sky View Index" },
-      { id: "GVI-layer", label: "Green View Index" },
-      { id: "VEI-layer", label: "Visual Enclosure Index" },
-      { id: "VMI-layer", label: "Visual Motorization Index" },
-      { id: "VHI-layer", label: "Visual Housing Index" }
+      { id: "SVI-enclos-layer", label: "Sky View Index-enclos" },
+      { id: "SVI-walkability-layer", label: "Sky View Index-walkability" },
+      { id: "SVI-obstacle-layer", label: "Sky View Index-obstacle" },
+      { id: "VMI-layer", label: "Visual Motorization Index" }
     ]
   };
 
