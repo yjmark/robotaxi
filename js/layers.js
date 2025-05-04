@@ -138,17 +138,18 @@ async function addLayers(map) {
         layout: { visibility: "none" },
         paint: {
             "fill-color": [
-        "case",
-        ["!", ["is-number", ["get", key]]], "#f2f0f7",  // NaN이면 0의 색상으로
-        [
-          "interpolate",
-          ["linear"],
-          ["get", key],
-          0, "#f2f0f7",
-          med, color.trim(),
-          max, "#000000"
-        ]
-      ],
+              "interpolate",
+              ["linear"],
+              // NaN은 0으로 대체해서 색상 처리
+              [
+                "coalesce", // 첫 번째 숫자가 유효하면 사용, 아니면 다음
+                ["get", key],
+                0
+              ],
+              0, "#f2f0f7",
+              med, color.trim(),
+              max, "#000000"
+            ],
           "fill-opacity": 0.6
         }
       });
