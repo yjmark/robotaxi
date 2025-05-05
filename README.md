@@ -22,7 +22,7 @@ The crash data was originally obtained as individual incident reports in PDF for
 The dependent variable is crash density, defined as the number of crashes per unit block group area (km²).
 
 #### Independent variables
-By mostly R, all independent variables are compiled and merged in the file [CBG 0411_elevationgeometryadded.csv](https://github.com/yjmark/robotaxi/blob/main/data/model/Data/CBG 0411_elevationgeometryadded.csv). They are processed and analyzed in [250429_Crash_BE.ipynb](https://github.com/yjmark/robotaxi/blob/main/data/model/250429_Crash_BE.ipynb). 
+By mostly R, all independent variables are compiled and merged in the file [CBG 0411_elevationgeometryadded.csv](https://github.com/yjmark/robotaxi/blob/main/data/model/Data/CBG%200411_elevationgeometryadded.csv). They are processed and analyzed in [250429_Crash_BE.ipynb](https://github.com/yjmark/robotaxi/blob/main/data/model/250429_Crash_BE.ipynb). 
 
 ### Model
 Variance Inflation Factor (VIF) analysis, Ordinary Least Squares (OLS) regression, and Random Forest (RF) modeling were conducted and visualized in [250429_Crash_BE.ipynb](https://github.com/yjmark/robotaxi/blob/main/data/model/250429_Crash_BE.ipynb).
