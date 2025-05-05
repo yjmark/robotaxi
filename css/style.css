@@ -196,12 +196,13 @@
 
 .event-details {
     flex: 1; 
+    line-height: 1.2;
   }
   
 
 .event-title {
 font-weight: bold;
-font-size: 16px;
+font-size: 14px;
 margin-bottom: 5px; 
     }
 
@@ -345,6 +346,17 @@ margin-bottom: 5px;
     color: #fff;
   }
 
+.btn-popup {
+    background-color: #fff;
+    padding: 3px 5px; 
+    margin-left: 5px; 
+    font-size: 14px;
+    border: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgb(58, 58, 182);
+}
+
 .edit-btn {
     background-color: #869bce;
     padding: 3px 5px; 
@@ -441,7 +453,7 @@ margin-bottom: 5px;
     display: flex;
     align-items: center; /* 세로 가운데 정렬 */
     margin-bottom: 10px;
-    height: 24px;            /* ✅ 고정 높이 */
+    height: 15px;            /* ✅ 고정 높이 */
     line-height: 1;          /* ✅ 라인 높이 통일 */
     white-space: nowrap;     /* ✅ 줄 바꿈 방지 */
   }
@@ -469,7 +481,7 @@ margin-bottom: 5px;
     cursor: pointer;
     top: 0; left: 0;
     right: 0; bottom: 0;
-    background-color: #555555;
+    background-color: #999999;
     border-radius: 34px;
     transition: 0.3s;
   }
