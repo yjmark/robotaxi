@@ -14,12 +14,53 @@
     overflow: hidden;
 }
 
+#title-bar {
+    width: 100%;
+    height: 5vh;
+    background: linear-gradient(to right, #0E2a7d, #0a1e57); 
+    opacity: 0.8;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    flex-wrap: nowrap; 
+    justify-content: space-between;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 999;
+    position: fixed; /* 또는 fixed로 고정할 수도 있음 */
+  }
+  .title-left {
+    flex: 1;
+    min-width: 300px;
+  }
 
+  .title-left h4,
+  .title-left h5,
+  .title-left p {
+    margin: 0 0;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .authors {
+    font-weight: 400;
+    font-size: 1rem;
+    margin-left: 10px;
+  }
+
+  .title-right {
+    display: flex;
+    gap: 10px;
+  }
 
 #map {
     position: absolute;
     left: 30%;
-    top: 0;
     min-width: 70%;
     height: 100vh;
 }
@@ -47,7 +88,7 @@
     width: 10px;
     height: 10px;
     position: absolute;     /* or fixed */
-    top: 5px;              /* 원하는 위치 */
+    top: 6vh;              /* 원하는 위치 */
     right: 5px;            /* 원하는 위치 */
     background-color: white; /* 테스트용 배경색 */
     border: 1px solid #ccc;  /* 디버깅 시 시각화 도움 */
@@ -55,27 +96,39 @@
     
   }
 
+.geocoder {
+    position: absolute;  /* 또는 fixed */
+    top: 4vh;
+    left: 10px;  /* 원하는 좌우 위치 */
+}
+
+  .geocoder h4,
+  .title-left h5,
+  .title-left p {
+    font-size: 1.2rem;
+  }
+
 #layerList {
     position: absolute;
     width: 30%;
-    top: 70%;
+    top: 60vh;
     left: 0;
     font:
-        12px/20px 'Lato',
+        12px/16px 'Lato',
         Arial,
         Helvetica,
         sans-serif;
     background-color: #efefef;
-    height: 10vh; 
+    height: 40vh;
     overflow: hidden;
     z-index: 10;
     padding: 10px;
     overflow-y: auto; 
-    height: 30vh;
+    
 }
 
 #layerList h4 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #333;
     margin-bottom: 4px;
 }
@@ -87,14 +140,9 @@
     font-style: italic;
 }
 
-#how-to-use {
-    margin-top: 5px;
-    padding: 10px;
-    overflow-y: auto; 
-    height: 5vh;
-}
-
 #eventList {
+    position: absolute;
+    top: 15vh;
     margin-top: 5px;
     padding: 10px;
     overflow-y: auto; 
@@ -102,7 +150,7 @@
 }
 
 #eventList h4 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #333;
     margin-bottom: 4px;
 }
@@ -137,6 +185,15 @@
     margin-left: 1px;
 }
 
+#map-legend {
+    font: 
+        12px/20px 'Lato',
+        Arial,
+        Helvetica,
+        sans-serif;
+    opacity: 0.7;
+}
+
 .event-details {
     flex: 1; 
   }
@@ -152,11 +209,10 @@ margin-bottom: 5px;
     padding: 3px 5px; 
     font-size: 14px;
     margin-left: 5px; 
-    border: none;
+    border: #0E2a7d;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #003769; 
-    color: #fff;
+    color: #0E2a7d;
   }
   
 .delete-btn {
@@ -180,7 +236,8 @@ margin-bottom: 5px;
     color: #fff;
   }
   #eventListContainer :hover {
-    background-color: #bed3f3; 
+    background-color: #b5d5fb; 
+    
 }
 
 .mapboxgl-popup-content {
@@ -200,6 +257,7 @@ margin-bottom: 5px;
     border: none;
     padding: 00px;
     margin: 0;
+    top: 0;
 }
 
 .map-overlay .geocoder {
@@ -210,7 +268,7 @@ margin-bottom: 5px;
     margin: 0;
     width: 100%;
     left: 0;
-    top: 0;
+    top: 5vh;
 }
 
 .map-overlay .mapboxgl-ctrl-geocoder {
@@ -242,7 +300,7 @@ margin-bottom: 5px;
 .toggle-button {
     margin: 5px;
     background-color: #ddd; 
-    color: #003764; 
+    color: #b5d5f2; 
     padding: 5px 10px; 
     font-size: 12px; 
     border: none; 
@@ -272,33 +330,58 @@ margin-bottom: 5px;
 
 /* 버튼 스타일 */
 .btn-primary {
-    background-color: #003764;
-    border-color: #003764;
-    padding: 5px 10px; 
+    background-color: #869bce;
+    padding: 3px 5px; 
+    margin-left: 5px; 
     font-size: 14px;
+    border: #869bce;
     border-radius: 4px;
     cursor: pointer;
     color: #fff;
 }
 
+.btn-primary:hover {
+    background-color: rgb(58, 58, 182) !important;
+    color: #fff;
+  }
+
+.edit-btn {
+    background-color: #869bce;
+    padding: 3px 5px; 
+    font-size: 14px;
+    margin-left: 5px; 
+    border: #869bce;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+  }
+
+
+
+
 .btn-secondary {
     background-color: #6c757d;
-    border-color: #6c757d;
-    padding: 5px 10px; 
+    padding: 3px 5px; 
     font-size: 14px;
+    border: #6c757d;
     border-radius: 4px;
     cursor: pointer;
     color: white;
 }
+
+.btn-secondary:hover {
+    background-color: rgb(74, 74, 74) !important;
+    color: #fff;
+  }
 
 /* 모달 스타일 */
 .modal-content {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
+/* #0E2a7d */
 .modal-header {
-    background-color: #003764;
+    background: linear-gradient(to right, #869bce, #0a1e57); 
     color: white;
     border-bottom: none;
     padding: 15px;
@@ -325,7 +408,7 @@ margin-bottom: 5px;
 
 .add-event-button {
     position: absolute; 
-    background-color: #007bff;
+    background-color: #869bce;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -386,7 +469,7 @@ margin-bottom: 5px;
     cursor: pointer;
     top: 0; left: 0;
     right: 0; bottom: 0;
-    background-color: #444;
+    background-color: #555555;
     border-radius: 34px;
     transition: 0.3s;
   }
@@ -404,7 +487,7 @@ margin-bottom: 5px;
   }
   
   input:checked + .slider {
-    background-color: #003764;
+    background-color: #869bce;
   }
   
   input:checked + .slider:before {

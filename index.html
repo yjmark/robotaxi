@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" name="viewport" content="initial-scale=1.0,maximum-scale=1,user-scalable=no" />
-    <title>Robotaxi Incidents Management System By Shuai Wang, Emmanuel Jiang, and Youngsang Jun</title>
+    <title>How Built Environments Shape Robotaxi Crashes in San Francisco By Shuai Wang, Emmanuel Jiang, and Youngsang Jun</title>
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Add the Open Sans font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- Add the Mapbox GL JS CSS and JS files -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet" />
@@ -25,22 +25,32 @@
         <div class="map" id="map">Map</div> 
         <canvas id="radarChart" width="300px" height="150px"></canvas>   
       </section> 
-      
-      <div id="addEventButton" class="add-event-button" style="display: none;">
-        Add Incident Here
-      </div>
-      
-      <div class="map-overlay">
-        <div id="geocoder" class="geocoder">
-          <h4><b>Robotaxi Crashes and the City</b><br>Find Locations</h4>
+      <!-- Title Bar -->
+      <div id="title-bar">
+        <div class="title-left">
+          <h4>
+            How Built Environments Shape Robotaxi Crashes in San Francisco – 
+            <span class="authors">Wang, Shuai; Jiang, Emmanuel; Jun, Youngsang</span>
+          </h4>
         </div>
-        <div id="how-to-use">
+        <div class="title-right">
           <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#helpModal">
             How to Use This Site
-          </button>&nbsp;&nbsp;
+          </button>
           <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#downloadModal">
             Download Data
           </button>
+        </div>
+      </div>
+      <div id="addEventButton" class="add-event-button" style="display: none;">
+        Add Incident Here
+      </div>
+      <div class="map-overlay">
+        <div id="geocoder" class="geocoder">
+          <h4>Find Locations</h4>
+        </div>
+        <div id="how-to-use">
+          
         </div>
         <div id="eventList">
           <h4>Incident List</h4>
@@ -57,7 +67,25 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                How built environments shape robotaxi crash risks in San Francisco.
+                <h5>Introduction</h5>
+                <p>Robotaxi adoption is no longer hypothetical. This web app provides visualization how built environments shape robotaxi crash risks in San Francisco, allowing planners and policymakers to implement a "Try-Before-You-Build” approach.</p>
+                <h5>How to Use</h5>
+                <h6>Search box</h6>
+                <p>The search box, which is on the top left, allows you to find crashes at specific location such as near your home. You might want to search for an address and zoom into the map. The incident list will automatically filter to show only crashes within the current view.</p>
+                <h6>Incident List</h6>
+                <p>On the Incident List, crashes are filtered by the visible map area when zoomed in. You can add, edit, or delete incident entries. To add a new incident, click on the map to select the location of the accident place. Clicking an entry will allow you to zoom the map to that location.</p>
+                <h6>Layer List</h6>
+                <p>On the Independent Variable Layers Lists, toggle switches allow you to view the spatial distribution of each independent variable. Additionally, there are three crash density prediction scenarios based on a Random Forest (RF) model. The radar chart on the top right shows how each block group scores on the Top-4 SHAP-contributing variables, which are SVI enclosures, Population, Building densitiy, and Commericial POI density. A larger radar area indicates a higher predicted crash risk for that area.</p>
+                <h6>Download Data</h6>
+                <p>"Download Data” on the top right corner allows you to filter crash data by robotaxi brand and vehicle year, then download it as a JSON format.</p>
+
+                <h5>Notes for Random Forest Model</h5>
+                <p>Defining crash density as a dependent variable and others as independent variables, the modeling was conducted by three steps:<br>
+                (1) filter out collinear variables with high VIF to ensure model stability and keep interpretation clean;<br>
+                (2) build a baseline <b>OLS</b> model, then a <b>Random Forest</b> that can handle thresholds;<br>
+                (3) evaluate with R², MAE, MSE and SHAP values for both global and local explanations.</p>
+                <p>The RF model demonstrated comparable explanatory power, achieving an R-squared of approximately 0.701 on standardized data, with an MSE of 0.123 and MAE of 0.268. Given its ability to handle non-linearities, subsequent interpretation focuses primarily on the RF model.
+                The global importance and impact direction of each feature on the Random Forest model's prediction of crash density. The following figures are non-linear relationships between crash density and built environment variables.</p>
                 <img src="data/model/SHAP/combined_0.jpg" alt="SHAP" style="width: 100%; height: auto;">
                 <img src="data/model/SHAP/combined_1.jpg" alt="SHAP" style="width: 100%; height: auto;">
                 <img src="data/model/SHAP/combined_2.jpg" alt="SHAP" style="width: 100%; height: auto;">

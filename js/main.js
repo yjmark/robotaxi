@@ -112,7 +112,7 @@ map.on("click", (e) => {
   const popupContent = document.createElement("div");
   popupContent.innerHTML = `
     <button type="button" id="addEventButton" class="btn-primary" data-bs-toggle="modal" data-bs-target="#eventModal" style="margin-top: 5px;">
-      Add Incident Here
+      Add Incident here
     </button>
   `;
 

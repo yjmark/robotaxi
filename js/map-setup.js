@@ -13,7 +13,7 @@ function setupMap() {
 
   // Na
   const nav = new mapboxgl.NavigationControl();
-  map.addControl(nav, 'top-left');
+  map.addControl(nav, 'bottom-right');
   map.addControl(new mapboxgl.ScaleControl());
 
   return map;
